@@ -1,0 +1,11 @@
+{% load i18n %}
+{% if forloop.first %}<ul class="article-list">{% endif %}
+    <li>
+        <h3><a href="{{ article.get_absolute_url }}" title="Leer esta entrada">{{ article.title|truncatechars:50 }}</a></h3>
+        <div class="quiet">
+            <b>Publicado en:</b> {{ article.publish_date|date:"F jS, Y" }}
+            por <a href="{% url articles_by_author article.author.username %}"
+                title="Leer entradas de {{ article.author.get_name }}">{{ article.author.get_name }}</a>
+        </div>
+    </li>
+{% if forloop.last %}</ul>{% endif %}

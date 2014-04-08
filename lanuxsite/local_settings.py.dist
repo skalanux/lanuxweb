@@ -1,0 +1,15 @@
+
+import os
+
+INSTALL_DIR = os.path.dirname(__file__)
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'lanuxsite',
+        'USER': 'xxx',
+        'PASSWORD': 'xxx',
+        'HOST': '',
+        'PORT': '',
+    }
+}

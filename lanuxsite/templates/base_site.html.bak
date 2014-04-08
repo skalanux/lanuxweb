@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+   
+ {% block menu %}
+  {% include "menu.html" %}
+ {% endblock %} 
+
+ {% block header_region %}
+  {% include "header_region.html" %}
+ {% endblock %} 
+
+ {% block slides %}
+  {% include "slides.html" %}
+ {% endblock %} 
+
+{% block footer %}
+  {% include "footer.html" %}
+{% endblock %}

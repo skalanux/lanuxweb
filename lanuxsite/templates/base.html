@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Lanux - Grupo de Usuarios GNU/Linux de la ciudad de Lanús</title>
+<meta name="keywords" content="Lanux, Lanus, Lug, Glug, Linux" />
+<meta name="description" content="Grupo de Usuarios GNU/Linux de la ciudad de Lanús" />
+<link href="/static/css/style.css" rel="stylesheet" type="text/css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" type="text/javascript"></script>
+
+<script language="javascript" type="text/javascript">
+function clearText(field)
+{
+    if (field.defaultValue == field.value) field.value = '';
+    else if (field.value == '') field.value = field.defaultValue;
+}
+
+
+
+</script>
+{% block extrahead %}
+{% endblock %}
+
+
+</head>
+<body>
+
+<div id="wrapper">
+    
+    <div id="header">
+        <div id="site_title"><h1><a href="http://www.lanux.org.ar" target="_parent">Lanux</a></h1></div>
+        
+    </div>
+    <div id="menu">
+        <ul>
+            <li><a href="/" class='{% ifequal request.path "/" %}current{% endifequal %}'>Inicio</a></li>
+            <li><a href="/blog/" class='{% ifequal request.path "/blog/" %}current{% endifequal %}'>Blog</a></li>
+            <li><a href="/lista/" class='{% ifequal request.path "/lista/" %}current{% endifequal %}'>Lista</a></li>
+            <li><a href="https://picasaweb.google.com/110308760433060655756/" target="blank">Galería</a></li>
+            <li><a href="/participa/" class='{% ifequal request.path "/participa/" %}current{% endifequal %}'>Participá</a></li>
+            <li><a href="/trayectoria/" class="{% ifequal request.path "/trayectoria/" %}current{% endifequal %}">Trayectoria</a></li>
+        </ul> 
+       <!-- 
+        <div id="search_box">
+            <form action="#" method="post">
+                <input type="text" value="Buscar..." name="q" size="10" id="searchfield" title="searchfield" onfocus="clearText(this)" onblur="clearText(this)" />
+                <input type="submit" name="Search" value="" id="searchbutton" title="Search" />
+            </form>
+        </div>      
+        -->
+        <div class="cleaner"></div>
+    </div> <!-- end of menu -->
+   <div>
+	<img src="{{ STATIC_URL }}images/bannerflisol2014.png" >
+</div> 
+    <div id="main">
+
+        <div class="content_box">
+            {% block content %}
+            {% endblock %}
+
+           <div class="cleaner"></div>
+        </div>
+        
+        <div class="cleaner"></div>
+    </div> <!-- end of main -->
+    
+    <div class="cleaner"></div> 
+</div> <!-- end of wrapper -->
+
+
+<div id="footer_wrapper">
+    <div id="footer">
+        
+        <div class="footer_box">
+            <h4>Próximos eventos</h4>
+            <ol class="footer_list">
+                <li><a href="http://www.gnutn.org.ar/drupal/node/55">Cafe.in</a></li>
+            </ol>
+        </div>
+        
+         <div class="footer_box">
+            <h4>Organizaciones y colaboraciones</h4>
+            <ol class="footer_list">
+                <li><a href="http://drupal.usla.org.ar">Usla</a></li>
+                    <li><a href="http://solar.org.ar">Solar</a></li>
+                    <li><a href="http://misol.org.ar">Misol</a></li>
+                <li><a href="http://www.kennedy.edu.ar/Home.aspx">Universidad Kennedy</a></li>
+           </ol>
+        </div>
+        
+         <div class="footer_box">
+            <h4>Participá</h4>
+            <a href="http://twitter.com/lanuxlug" target="blank"><img src="{{ STATIC_URL }}images/twitter.png" alt="Twitter" /></a>
+            <a href="#"><img src="{{ STATIC_URL }}images/rss.png" alt="RSS" /></a>
+            <a href="http://www.facebook.com/Lanux" target="blank"><img src="{{ STATIC_URL }}images/facebook.png" alt="Facebook" /></a>
+            <p>irc.freenode.net #lanux <img src="{{ STATIC_URL }}images/irc.png" alt="IRC" /></p>
+            Reuniones y charlas
+        </div>
+        
+  <div class="footer_box footer_box_last">
+            <h4>Organizativo</h4>
+            <ol class="footer_list">
+                <li><a href="http://wiki.lanux.org.ar">Wiki</a></li>
+            </ol>
+      </div>
+    
+        <div class="cleaner"></div>
+    </div> <!-- end of footer -->
+    
+    <div id="copyleft">
+
+        <div class="left">
+            Copyleft 2012 <a href="http://www.lanux.org.ar">Lanux</a>
+            <a href="http://www.freecsstemplates.in" target="_parent">Free CSS Templates</a>
+        </div>
+        <div class="right">
+            Powered by: <a href="http://drupal.usla.org.ar/"><img src="http://drupal.usla.org.ar/sites/default/files/usla2011-c.png" height="50px" /></a>
+        </div>    
+    </div> <!-- end of footer -->
+</div> <!-- end of footer wrapper -->
+
+</body>
+</html>

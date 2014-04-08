@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+<script>
+
+(function($) {
+  $.picasa = {
+    albums: function(user, callback) {
+      var url = "http://picasaweb.google.com/data/feed/base/user/:user_id?alt=json&kind=album&hl=en_US&access=visible&fields=entry(id,media:group(media:content,media:description,media:keywords,media:title))"
+      url = url.replace(/:user_id/, user);
+      $.getJSON(url, function(data) {
+        var album = null;
+        var albums = [];
+        $.each(data.feed.entry, function(i, element) {
+          album = {
+            id: element.id["$t"].split("?")[0].split("albumid/")[1],
+            title: element["media$group"]["media$title"]["$t"],
+            description: element["media$group"]["media$description"]["$t"],
+            thumb: element["media$group"]["media$content"][0]["url"],
+          }
+          album.images = function(callback) {
+            $.picasa.images(user, album.id, callback);
+          }
+          albums.push(album);
+        });
+        callback(albums);
+      });
+    },
+
+    images: function(user, album, callback) {
+      var url = "http://picasaweb.google.com/data/feed/base/user/:user_id/albumid/:album_id?alt=json&kind=photo&hl=en_US&fields=entry(title,gphoto:numphotos,media:group(media:content,media:thumbnail))";
+      url = url.replace(/:user_id/, user).replace(/:album_id/, album);
+      var image = null;
+      var images = [];
+      $.getJSON(url, function(data) {
+        $.each(data.feed.entry, function(i, element) {
+          image = element["media$group"]["media$content"][0];
+          image.title = element.title["$t"];
+          image.thumbs = [];
+          $.each(element["media$group"]["media$thumbnail"], function(j, j_element) {
+            image.thumbs.push(j_element);
+          });
+          images.push(image);
+        });
+        callback(images);
+      });
+    }
+  };
+
+  $.fn.picasaAlbums = function(user, callback) {
+    $.picasa.albums(user, function(images) {
+      if (callback) {
+        callback(images);
+      }
+    });
+  };
+
+  $.fn.picasaGallery = function(user, album, callback) {
+    var scope = $(this);
+    $.picasa.images(user, album, function(images) {
+      if (callback) {
+        callback.apply(scope, images);
+      } else {
+        var picasaAlbum = "<ul class='picasa-album'>\n";
+        $.each(images, function(i, element) {
+          picasaAlbum += "  <li class='picasa-image'>\n";
+          picasaAlbum += "    <a class='picasa-image-large' href='" + element.url + "'>\n";
+          picasaAlbum += "      <img class='picasa-image-thumb' src='" + element.thumbs[1].url + "'/>\n";
+          picasaAlbum += "    </a>\n";
+          picasaAlbum += "  </li>\n";
+        });
+        picasaAlbum += "</ul>";
+        scope.append(picasaAlbum);
+      }
+    });
+  }
+})(jQuery);
+
+$(document).ready(function() {
+  // Handler for .ready() called.
+
+    var picasa_user = "110308760433060655756";
+    var picasa_album_anos = "5674575456378376433";
+
+    // adds a gallery of album covers
+    //$("#picasa-albums").picasaAlbums(picasa_user);
+
+    $.picasa.albums(picasa_user, function(albums) {
+        var album_data = "";
+        var counter = 0;
+        var pc_class;
+      $.each(albums, function(index, album) {
+        counter++;
+        if (counter<7){
+            if (counter%3==0){
+                pc_class = "pc_box pc_box_last";
+            } else {
+                pc_class = "pc_box";
+            }
+            album_data += '<div class="'+pc_class+'"> \
+                <div class="pc_box_image"><span></span> \
+                        <img src='+album.thumb +' alt="'+album.title+'" /> \
+                    </div> \
+                  <div class="pc_box_content"> \
+                    <div class="img_cap"> \
+                    <a href="#" target="_parent">'+album.title+'</a></div> \
+                    </div> \
+                </div>';
+        }
+        });
+        $("#picasa-albums").html(album_data);
+    });
+});
+
+</script>
+{% endblock %}
+
+{% block content %}
+
+
+        <div class="content_box">
+            <h2>Flisol 2012</h2>
+            <p> Como todos los años Lanux participará del Festival latinoamericano de instalación de Software Libre (FLISOL)!!
+Traes tu computadora y te instalamos Software Libre gratuitamente !!
+El evento se realizará el sábado 28 de abril en la Universidad Kennedy (sede Lanús - Av. Hipólito Yrigoyen 4651 a 50 mtrs de la estación ).
+Para más información sobre el evento [...]</p>
+      <a href="#" class="more float_r">Leer más</a>
+            <div class="cleaner"></div>
+        </div>
+        <!--
+        <IFRAME SRC=http://www.wsirc.com/?username=wsirc_******&server=irc.freenode.net%3A6667&channel=%23lanux&autojoin=false&color=%23C0C0C0&dark=false STYLE='width: 100%; height: 500;' WIDTH=100% HEIGHT=500 FRAMEBORDER=0 BORDER=0 SCROLLING=NO SCROLLBAR=NO></IFRAME>       
+        -->
+        <div class="project_collection">
+            <h2>Galerías de fotos</h2>
+        <div id="picasa-albums"></div>
+           <div class="cleaner"></div>
+            <a href="http://picasaweb.google.es/lanux01/" target="blank" class="more float_r">Ver más</a>
+            <div class="cleaner"></div>
+        </div>
+
+{% endblock %}
