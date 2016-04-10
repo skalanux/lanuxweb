@@ -1,12 +1,12 @@
 /*
 Credit: http://www.templatemo.com
 */
-@import url(http://fonts.googleapis.com/css?family=Cantarell:400,700);
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,700);
 body {
 	margin: 0;
 	padding: 0;
 	color: #000;
-	font-family: 'Cantarell', sans-serif;
+	font-family: 'Roboto', sans-serif;
 	font-size: 13px;
 	line-height: 1.7em; 
 	background-color: #fff;
